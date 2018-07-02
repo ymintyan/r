@@ -1,0 +1,231 @@
+<html>
+	<head>
+		<title>test</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background-color: #000;
+				background-position: 100% 5%;
+				background-size: 33%;
+				background-repeat: no-repeat;
+				background-image: url(oval4.png);
+				color: #fff;
+				font-size: 20px;
+				font-weight: 600;
+				min-height: 1000px;
+				position: relative;
+			}
+			body:before {
+				content: '';
+				position: absolute;
+				top: 5%;
+				width: 100%;
+				height: 1px;	
+				background: gray;
+			}
+			p {
+				position: relative;
+				float: right;
+				width: 30%;
+				margin-right: 10%;
+				margin-bottom: 30px;
+				border-bottom: 1px solid gray;
+				padding-left: 30px;
+				padding-bottom: 10px;
+				font-family: Verdana;
+			}
+p:after {
+  content:'|';
+  /* animation: a 1s infinite; */
+}
+p:before {
+  content:'';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-image: url(shape.png);
+}
+
+@keyframes a {
+  0%{opacity:0}
+  50%{opacity:1}
+  100%{opacity:0}
+}
+
+#wr {
+	width: 50%;
+	float: right;
+	overflow: hidden;
+	min-height: 200px;
+	margin-top: 100px;
+}
+.mood,.vibes{
+  display:none; 
+  opacity:0;
+  transition: all .2s;
+  justify-content: center;
+  flex-wrap: wrap;
+  clear: both;
+}
+.mood.show, .vibes.show{
+  display: flex;
+  opacity:1;
+}
+.mood div, .vibes div {
+ 	margin: 10px;
+}
+.show div{
+  width: 150px;
+  animation: s 4s;
+  opacity:0;
+}
+.show div img {
+	width: 100%;
+	height: auto;
+}
+
+.show #m1{
+  transform: translate(-300px,0);
+  
+}
+.show #m2{
+  transform: translate(-300px,300px);
+  
+}
+.show #m3{
+  transform: translate(200px,0px);
+  
+}
+.show #m4{
+  transform: translate(100px);
+  
+}
+
+
+.show #v1{
+  transform: translate(-300px,0);
+}
+.show #v2{
+  transform: translate(-200px,0px);
+}
+.show #v3{
+  transform: translate(-300px,0px);
+}
+.show #v4{
+  transform: translate(-200px,0px);
+}
+
+@media (max-width: 992px) {
+	p {
+		float: none;
+		width: 50%;
+	}
+	body {
+		background-size: contain;
+	}
+}
+@media (max-width: 550px) {
+	p {
+		width: 50%;
+	}
+	p:before {
+		left: 3px;
+	}
+	#wr {
+		float: none;
+		width: 100%;
+	}
+	body:before {
+		display: none;
+	}
+}
+
+@keyframes s {
+  30% {
+  	opacity: 0;
+  }
+  70% {
+  	opacity: 1;
+  	transform:translate(0,0)
+  }
+  100% {opacity: 0;}
+}
+		</style>
+	</head>
+	<body>
+		<div id="wr">
+			<p id='p'></p>
+			<div class="mood">
+				<div id="m1"><img src="1.jpg"></div>
+				<div id="m2"><img src="2.jpg"></div>
+				<div id="m3"><img src="4.jpg"></div>
+				<div id="m4"><img src="3.jpg"></div>
+			</div>
+
+			<div class='vibes'>
+				<div id="v1"><img src="1/5.jpg"></div>
+				<div id="v2"><img src="1/6.jpg"></div>
+				<div id="v3"><img src="1/8.jpg"></div>
+				<div id="v4"><img src="1/7.jpg"></div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+let time = 0;
+let a = str => {
+	
+  for(let i = 0; i < str.length; i++){
+  	time = (i+1)*200;
+  	setTimeout( ()=>{ add(str[i])},time);
+  }
+  
+  setTimeout( ()=>{ document.getElementsByClassName('mood')[0].classList.toggle('show');},time);
+  
+  
+  time+=300;
+  setTimeout( ()=>{
+  
+   for(let i = -1; i > -5; i--){
+       time += 200;
+       setTimeout( ()=>{ remove(-1)},time);
+    }
+    time+=1000;
+
+    setTimeout( ()=>{ 
+    	document.getElementsByClassName('mood')[0].classList.toggle('show');
+    	document.getElementsByClassName('vibes')[0].classList.toggle('show');
+	},time);
+
+    let v = 'vibes';
+    for(let i = 0; i < v.length; i++){
+       time += 200;
+       setTimeout( ()=>{ 
+       	add(v[i])
+       },time);
+    }
+
+    time+=2000;
+    setTimeout( ()=>{
+    	p.innerHTML = '';document.getElementsByClassName('vibes')[0].classList.toggle('show');
+    },time);
+    
+  },time);
+}
+
+let add = i => {
+	p.innerHTML += i;
+}
+
+let remove = i => {
+ 	p.innerHTML = p.innerHTML.slice(0,i);
+}
+
+setInterval(a,11000,'good mood')
+a('good mood');
+		</script>
+	</body>
+</html>
